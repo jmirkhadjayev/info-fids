@@ -271,7 +271,8 @@ function AirportBoard() {
   };
 
   const getAirlineLogo = (flight: Flight) => {
-    return './logo1.png';
+    if (!flight) return '';
+    return flight.logo_url || `https://images.kiwi.com/airlines/64/${flight.airline_code}.png`;
   };
 
   const loadFlights = async (silent = false) => {
@@ -381,7 +382,7 @@ function AirportBoard() {
                 className="h-10 md:h-14 flex items-center cursor-pointer transition-opacity hover:opacity-80"
                 onClick={() => navigate('/')}
               >
-                <img src="./logo1.png" alt="Uzbekistan Airports" className={`${isFidsMode ? 'h-32 md:h-48' : 'h-full'} w-auto object-contain`} />
+                <img src="/logo1.png" alt="Uzbekistan Airports" className={`${isFidsMode ? 'h-32 md:h-48' : 'h-full'} w-auto object-contain`} />
               </div>
             </div>
             
@@ -520,7 +521,11 @@ function AirportBoard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center space-y-6"
               >
-
+                <div className="flex justify-center mb-8">
+                  <div className="h-24 md:h-32 bg-airport-navy p-4 rounded-3xl shadow-2xl flex items-center justify-center">
+                    <img src="/logo1.png" alt="Uzbekistan Airports Logo" className="h-full w-auto object-contain" />
+                  </div>
+                </div>
                 <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
                   {t.welcome} <span className="text-airport-gold">{t.airportName}</span>
                 </h2>
@@ -833,7 +838,7 @@ function AirportBoard() {
         <div className="max-w-full mx-auto flex flex-col md:flex-row justify-between items-center gap-16">
           <div className="flex items-center gap-6">
             <div className="h-16 md:h-20 flex items-center justify-center transition-opacity hover:opacity-80 cursor-pointer" onClick={() => navigate('/')}>
-              <img src="./logo1.png" alt="Uzbekistan Airports" className="h-full w-auto object-contain" />
+              <img src="/logo1.png" alt="Uzbekistan Airports" className="h-full w-auto object-contain" />
             </div>
           </div>
           <div className="flex gap-16 text-sm font-black uppercase tracking-widest text-gray-400">

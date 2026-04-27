@@ -73,10 +73,7 @@ const LOGO_CODE_MAPPING: Record<string, string> = {
   'C6': 'C6',
 };
 
-const CUSTOM_LOGOS: Record<string, string> = {
-  'UH': 'https://silk-avia.com/img/logosilk.png',
-  'C6': 'https://www.airfleets.net/cie/My%20Freighter.jpg',
-};
+const CUSTOM_LOGOS: Record<string, string> = {};
 
 const STATUS_MAPPING: Record<string, string> = {
   'SCH': 'Scheduled',

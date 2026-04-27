@@ -888,5 +888,15 @@ export const AIRPORT_TRANSLATIONS: Record<string, { ru: string, en: string, uz: 
 "ru":"АНКАРА",
 "uz":"ANQARA",
 "en":"ANKARA"
+},
+"SHA":{
+"ru":"ШАНХАЙ",
+"uz":"SHANXAY",
+"en":"SHANGHAI"
+},
+"HFE":{
+"ru":"ХЭФЭЙ",
+"uz":"XEFEI",
+"en":"HEFEI"
 }
 };

@@ -274,7 +274,7 @@ function AirportBoard() {
     if (!flight) return '';
     const name = flight.airline_name?.toLowerCase() || '';
     if (name.includes('my freighter')) {
-      return 'http://www.aerostar-logistics.com/uploads/partner/MF.jpg';
+      return 'https://upload.wikimedia.org/wikipedia/en/thumb/1/15/My_Freighter_Logo.svg/1200px-My_Freighter_Logo.svg.png';
     }
     if (name.includes('silk avia')) {
       return 'https://silk-avia.com/img/logosilk.png';

@@ -628,112 +628,121 @@ function AirportBoard() {
                     <div key={i} className="bg-white h-16 rounded-xl animate-pulse border border-gray-100 shadow-sm"></div>
                   ))
                 ) : filteredFlights.length > 0 ? (
-                  filteredFlights.map((flight, idx) => {
-                    const showDateSeparator = idx === 0 || flight.date !== filteredFlights[idx - 1].date;
+                  <div className="flex flex-col gap-2">
+                    {/* Table Header - Only visible on Desktop/FIDS */}
+                    <div className={`hidden md:grid gap-4 px-6 py-2 bg-airport-navy/5 rounded-t-xl border-x border-t border-gray-100 ${isFidsMode ? 'grid-cols-[1fr_1fr_1.5fr_1.5fr_3fr_1.3fr] p-10 text-2xl' : 'grid-cols-[0.8fr_0.8fr_1.5fr_1fr_2fr_1fr] text-[10px]'} font-black text-gray-500 uppercase tracking-widest`}>
+                      <div>{t.scheduled}</div>
+                      <div>{t.actual}</div>
+                      <div>{t.city}</div>
+                      <div>{t.flight}</div>
+                      <div>{t.airline}</div>
+                      <div>{t.status}</div>
+                    </div>
 
-                    return (
-                      <Fragment key={`${flight.flight_number}-${idx}`}>
-                        {showDateSeparator && (
-                          <div className="flex items-center gap-3 py-4 px-4">
-                            <div className="flex-1 h-px bg-airport-navy/10" />
-                            <div className="flex items-center gap-2 px-4 py-1.5 bg-airport-navy text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md border border-white/5">
-                              <Calendar size={12} className="text-airport-gold" />
-                              {new Date(flight.date).toLocaleDateString(currentLanguage === 'UZ' ? 'uz-UZ' : (currentLanguage === 'RU' ? 'ru-RU' : 'en-GB'), { day: '2-digit', month: 'long', year: 'numeric' })}
-                            </div>
-                            <div className="flex-1 h-px bg-airport-navy/10" />
-                          </div>
-                        )}
-                        <motion.div
-                          initial={{ y: 10, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ delay: idx * 0.02 }}
-                          onClick={() => setSelectedFlight(flight)}
-                          ref={el => flightRefs.current[`${flight.flight_number}-${idx}`] = el}
-                          className={`bg-white text-gray-900 rounded-xl shadow-sm transition-all cursor-pointer group ${isFidsMode ? 'p-10 mb-6 border-2 border-gray-200' : 'p-2 md:px-6 md:py-2 border'
-                            } ${
-                            // Highlight if within 15 minutes of current time in Tashkent
-                            (() => {
-                              const [h, m] = (flight.scheduled_time || "00:00").split(':').map(Number);
-                              const fMin = h * 60 + m;
+                    {filteredFlights.map((flight, idx) => {
+                      const showDateSeparator = idx === 0 || flight.date !== filteredFlights[idx - 1].date;
 
-                              // Get current time in Tashkent
-                              const tasTimeStr = currentTime.toLocaleString('en-US', { timeZone: 'Asia/Tashkent' });
-                              const tasDate = new Date(tasTimeStr);
-                              const curMin = tasDate.getHours() * 60 + tasDate.getMinutes();
-
-                              return Math.abs(fMin - curMin) <= 15 ? 'border-airport-gold ring-2 ring-airport-gold/20 scale-[1.01] z-10' : (isFidsMode ? 'border-gray-200 hover:border-airport-gold' : 'border-gray-100 hover:shadow-md hover:border-airport-navy/10');
-                            })()
-                            }`}
-                        >
-                          <div className={`grid grid-cols-1 gap-2 items-center ${isFidsMode ? 'grid-cols-[1fr_1fr_1.5fr_1.5fr_3fr_1.3fr]' : 'md:grid-cols-[0.8fr_0.8fr_1.5fr_1fr_2fr_1fr]'}`}>
-                            {/* Scheduled */}
-                            <div className="flex flex-col">
-                              <span className={`font-black text-airport-navy ${isFidsMode ? 'text-9xl mb-4' : 'text-base'}`}>{flight.scheduled_time}</span>
-                              <span className={`${isFidsMode ? 'text-2xl' : 'text-[8px]'} font-bold text-gray-400 uppercase leading-none`}>{t.scheduled}</span>
-                            </div>
-
-                            {/* Actual time */}
-                            <div className="flex flex-col">
-                              <span className={`font-black ${isFidsMode ? 'text-9xl mb-4' : 'text-base'} ${flight.fact ? 'text-airport-green' : 'text-airport-gold'}`}>
-                                {flight.fact || flight.estimated_time || '--:--'}
-                              </span>
-                              <span className={`${isFidsMode ? 'text-2xl' : 'text-[8px]'} font-bold text-gray-400 uppercase leading-none`}>{t.actual}</span>
-                            </div>
-
-                            {/* City */}
-                            <div className="flex flex-col">
-                              <span className={`font-black text-airport-navy line-clamp-1 ${isFidsMode ? 'text-6xl' : 'text-[13px]'}`}>
-                                {AIRPORT_TRANSLATIONS[flight.destination_code || '']?.[currentLanguage.toLowerCase() as 'uz' | 'ru' | 'en'] || flight.destination_city || '---'}
-                              </span>
-                              <span className={`${isFidsMode ? 'text-2xl' : 'text-[8px]'} font-bold text-gray-400 uppercase leading-none`}>{t.city}</span>
-                            </div>
-
-                            {/* Flight Number & Type */}
-                            <div className="flex flex-col">
-                              <div className="flex items-center gap-1">
-                                <span className={`font-black text-airport-navy whitespace-nowrap ${isFidsMode ? 'text-6xl' : 'text-[13px]'}`}>{flight.flight_number}</span>
+                      return (
+                        <Fragment key={`${flight.flight_number}-${idx}`}>
+                          {showDateSeparator && (
+                            <div className="flex items-center gap-3 py-4 px-4">
+                              <div className="flex-1 h-px bg-airport-navy/10" />
+                              <div className="flex items-center gap-2 px-4 py-1.5 bg-airport-navy text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md border border-white/5">
+                                <Calendar size={12} className="text-airport-gold" />
+                                {new Date(flight.date).toLocaleDateString(currentLanguage === 'UZ' ? 'uz-UZ' : (currentLanguage === 'RU' ? 'ru-RU' : 'en-GB'), { day: '2-digit', month: 'long', year: 'numeric' })}
                               </div>
-                              <div className="flex items-center gap-1.5 mt-1">
-                                {flight.type === 'DEPARTURE' ? (
-                                  <>
-                                    <PlaneTakeoff size={isFidsMode ? 48 : 12} className="text-blue-600" />
-                                    <span className={`${isFidsMode ? 'text-2xl' : 'text-[8px]'} font-black uppercase text-blue-600 bg-blue-50 px-3 rounded`}>{t.departure}</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <PlaneLanding size={isFidsMode ? 48 : 12} className="text-green-600" />
-                                    <span className={`${isFidsMode ? 'text-2xl' : 'text-[8px]'} font-black uppercase text-green-600 bg-green-50 px-3 rounded`}>{t.arrival}</span>
-                                  </>
-                                )}
-                              </div>
+                              <div className="flex-1 h-px bg-airport-navy/10" />
                             </div>
+                          )}
+                          <motion.div
+                            initial={{ y: 10, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: idx * 0.02 }}
+                            onClick={() => setSelectedFlight(flight)}
+                            ref={el => flightRefs.current[`${flight.flight_number}-${idx}`] = el}
+                            className={`bg-white text-gray-900 rounded-xl shadow-sm transition-all cursor-pointer group ${isFidsMode ? 'p-10 mb-6 border-2 border-gray-200' : 'p-2 md:px-6 md:py-2 border'
+                              } ${
+                              // Highlight if within 15 minutes of current time in Tashkent
+                              (() => {
+                                const [h, m] = (flight.scheduled_time || "00:00").split(':').map(Number);
+                                const fMin = h * 60 + m;
 
-                            <div className="flex items-center gap-3 text-left">
-                              <div className={`bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden border border-gray-100 shrink-0 ${isFidsMode ? 'w-48 h-48' : 'w-8 h-8'}`}>
-                                <img
-                                  src={getAirlineLogo(flight)}
-                                  alt={flight.airline_name}
-                                  className="w-full h-full object-contain p-2"
-                                  referrerPolicy="no-referrer"
-                                  onError={(e) => {
-                                    (e.target as HTMLImageElement).src = 'https://picsum.photos/seed/plane/64/64';
-                                  }}
-                                />
-                              </div>
-                              <span className={`font-black text-gray-800 leading-tight line-clamp-1 ${isFidsMode ? 'text-5xl' : 'text-[10px]'}`}>{flight.airline_name}</span>
-                            </div>
+                                // Get current time in Tashkent
+                                const tasTimeStr = currentTime.toLocaleString('en-US', { timeZone: 'Asia/Tashkent' });
+                                const tasDate = new Date(tasTimeStr);
+                                const curMin = tasDate.getHours() * 60 + tasDate.getMinutes();
 
-                            {/* Status */}
-                            <div className="flex justify-start">
-                              <div className={`rounded-full border font-black uppercase tracking-wider whitespace-nowrap ${isFidsMode ? 'px-12 py-6 text-4xl shadow-xl' : 'px-2 py-0.5 text-[8px]'} ${getStatusStyle(flight.status)}`}>
-                                {(t as any).statuses?.[flight.status] || flight.status}
+                                return Math.abs(fMin - curMin) <= 15 ? 'border-airport-gold ring-2 ring-airport-gold/20 scale-[1.01] z-10' : (isFidsMode ? 'border-gray-200 hover:border-airport-gold' : 'border-gray-100 hover:shadow-md hover:border-airport-navy/10');
+                              })()
+                              }`}
+                          >
+                            <div className={`grid grid-cols-1 gap-2 items-center ${isFidsMode ? 'grid-cols-[1fr_1fr_1.5fr_1.5fr_3fr_1.3fr]' : 'md:grid-cols-[0.8fr_0.8fr_1.5fr_1fr_2fr_1fr]'}`}>
+                              {/* Scheduled */}
+                              <div className="flex flex-col">
+                                <span className={`font-black text-airport-navy ${isFidsMode ? 'text-9xl' : 'text-base'}`}>{flight.scheduled_time}</span>
+                              </div>
+
+                              {/* Actual time */}
+                              <div className="flex flex-col">
+                                <span className={`font-black ${isFidsMode ? 'text-9xl' : 'text-base'} ${flight.fact ? 'text-airport-green' : 'text-airport-gold'}`}>
+                                  {flight.fact || flight.estimated_time || '--:--'}
+                                </span>
+                              </div>
+
+                              {/* City */}
+                              <div className="flex flex-col">
+                                <span className={`font-black text-airport-navy line-clamp-1 ${isFidsMode ? 'text-6xl' : 'text-[13px]'}`}>
+                                  {AIRPORT_TRANSLATIONS[flight.destination_code || '']?.[currentLanguage.toLowerCase() as 'uz' | 'ru' | 'en'] || flight.destination_city || '---'}
+                                </span>
+                              </div>
+
+                              {/* Flight Number & Type */}
+                              <div className="flex flex-col">
+                                <div className="flex items-center gap-1">
+                                  <span className={`font-black text-airport-navy whitespace-nowrap ${isFidsMode ? 'text-6xl' : 'text-[13px]'}`}>{flight.flight_number}</span>
+                                </div>
+                                <div className="flex items-center gap-1.5 mt-1">
+                                  {flight.type === 'DEPARTURE' ? (
+                                    <>
+                                      <PlaneTakeoff size={isFidsMode ? 48 : 12} className="text-blue-600" />
+                                      <span className={`${isFidsMode ? 'text-2xl' : 'text-[8px]'} font-black uppercase text-blue-600 bg-blue-50 px-3 rounded`}>{t.departure}</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <PlaneLanding size={isFidsMode ? 48 : 12} className="text-green-600" />
+                                      <span className={`${isFidsMode ? 'text-2xl' : 'text-[8px]'} font-black uppercase text-green-600 bg-green-50 px-3 rounded`}>{t.arrival}</span>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="flex items-center gap-3 text-left">
+                                <div className={`bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden border border-gray-100 shrink-0 ${isFidsMode ? 'w-48 h-48' : 'w-8 h-8'}`}>
+                                  <img
+                                    src={getAirlineLogo(flight)}
+                                    alt={flight.airline_name}
+                                    className="w-full h-full object-contain p-2"
+                                    referrerPolicy="no-referrer"
+                                    onError={(e) => {
+                                      (e.target as HTMLImageElement).src = 'https://picsum.photos/seed/plane/64/64';
+                                    }}
+                                  />
+                                </div>
+                                <span className={`font-black text-gray-800 leading-tight line-clamp-1 ${isFidsMode ? 'text-5xl' : 'text-[10px]'}`}>{flight.airline_name}</span>
+                              </div>
+
+                              {/* Status */}
+                              <div className="flex justify-start">
+                                <div className={`rounded-full border font-black uppercase tracking-wider whitespace-nowrap ${isFidsMode ? 'px-12 py-6 text-4xl shadow-xl' : 'px-2 py-0.5 text-[8px]'} ${getStatusStyle(flight.status)}`}>
+                                  {(t as any).statuses?.[flight.status] || flight.status}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </motion.div>
-                      </Fragment>
-                    );
-                  })
+                          </motion.div>
+                        </Fragment>
+                      );
+                    })}
+                  </div>
                 ) : (
                   <div className="bg-white text-gray-900 rounded-3xl p-20 text-center border border-gray-100 shadow-sm">
                     <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">

@@ -429,21 +429,30 @@ function AirportBoard() {
               <div className="flex flex-col items-start md:items-end">
                 <span className={`text-gray-400 uppercase font-black tracking-widest ${isFidsMode ? 'text-xl' : 'text-[8px] md:text-[11px]'}`}>
                   {(() => {
-                    if (currentLanguage === 'UZ') {
-                      const months = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'];
-                      const weekdays = ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'];
-                      const day = currentTime.getDate().toString().padStart(2, '0');
-                      const month = isFidsMode ? months[currentTime.getMonth()] : months[currentTime.getMonth()].substring(0, 3);
-                      const year = currentTime.getFullYear();
-                      const weekday = isFidsMode ? weekdays[currentTime.getDay()] : weekdays[currentTime.getDay()].substring(0, 3);
-                      return `${weekday}, ${day} ${month}, ${year}`;
+                    const months = {
+                      UZ: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
+                      RU: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                      EN: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                    };
+                    const weekdays = {
+                      UZ: ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'],
+                      RU: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                      EN: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                    };
+                    
+                    const lang = currentLanguage as Language;
+                    const day = currentTime.getDate();
+                    const month = months[lang][currentTime.getMonth()];
+                    const year = currentTime.getFullYear();
+                    const weekday = weekdays[lang][currentTime.getDay()];
+                    
+                    const displayMonth = isFidsMode ? month : month.substring(0, 3);
+                    const displayWeekday = isFidsMode ? weekday : weekday.substring(0, 3);
+                    
+                    if (lang === 'EN') {
+                      return `${displayWeekday}, ${displayMonth} ${day}, ${year}`;
                     }
-                    return new Intl.DateTimeFormat(currentLanguage === 'RU' ? 'ru-RU' : 'en-GB', {
-                      weekday: isFidsMode ? 'long' : 'short',
-                      day: '2-digit',
-                      month: isFidsMode ? 'long' : 'short',
-                      year: 'numeric'
-                    }).format(currentTime);
+                    return `${displayWeekday}, ${day} ${displayMonth}, ${year}`;
                   })()}
                 </span>
               </div>

@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --color-airport-navy: #003169;
+  --color-airport-gold: #C5A059;
+  --color-airport-light: #2A3F5F;
+  --color-airport-green: #03AC13;
+}

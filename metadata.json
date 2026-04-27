@@ -1,0 +1,6 @@
+{
+  "name": "Cargo Info FIDS",
+  "description": "Information board for airport flights and cargo",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

@@ -629,16 +629,6 @@ function AirportBoard() {
                   ))
                 ) : filteredFlights.length > 0 ? (
                   <div className="flex flex-col gap-2">
-                    {/* Table Header - Only visible on Desktop/FIDS */}
-                    <div className={`hidden md:grid gap-4 px-6 py-2 bg-airport-navy/5 rounded-t-xl border-x border-t border-gray-100 ${isFidsMode ? 'grid-cols-[1fr_1fr_1.5fr_1.5fr_3fr_1.3fr] p-10 text-2xl' : 'grid-cols-[0.8fr_0.8fr_1.5fr_1fr_2fr_1fr] text-[10px]'} font-black text-gray-500 uppercase tracking-widest`}>
-                      <div>{t.scheduled}</div>
-                      <div>{t.actual}</div>
-                      <div>{t.city}</div>
-                      <div>{t.flight}</div>
-                      <div>{t.airline}</div>
-                      <div>{t.status}</div>
-                    </div>
-
                     {filteredFlights.map((flight, idx) => {
                       const showDateSeparator = idx === 0 || flight.date !== filteredFlights[idx - 1].date;
 

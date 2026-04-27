@@ -274,7 +274,7 @@ function AirportBoard() {
     if (!flight) return '';
     const name = flight.airline_name?.toLowerCase() || '';
     if (name.includes('my freighter') || name.includes('myfreighter') || flight.airline_code === 'C6') {
-      return 'https://upload.wikimedia.org/wikipedia/en/thumb/1/15/My_Freighter_Logo.svg/1200px-My_Freighter_Logo.svg.png';
+      return 'https://www.airfleets.net/cie/My%20Freighter.jpg';
     }
     if (name.includes('silk avia') || name.includes('silkavia') || flight.airline_code === 'UH') {
       return 'https://silk-avia.com/img/logosilk.png';

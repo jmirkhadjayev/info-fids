@@ -272,6 +272,10 @@ function AirportBoard() {
 
   const getAirlineLogo = (flight: Flight) => {
     if (!flight) return '';
+    const name = flight.airline_name?.toLowerCase() || '';
+    if (name.includes('silk avia')) {
+      return 'https://silk-avia.com/img/logosilk.png';
+    }
     return flight.logo_url || `https://images.kiwi.com/airlines/64/${flight.airline_code}.png`;
   };
 

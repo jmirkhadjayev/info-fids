@@ -898,5 +898,10 @@ export const AIRPORT_TRANSLATIONS: Record<string, { ru: string, en: string, uz: 
 "ru":"ХЭФЭЙ",
 "uz":"XEFEI",
 "en":"HEFEI"
+},
+"TYO":{
+"ru":"ТОКИО",
+"uz":"TOKIYO",
+"en":"TOKYO"
 }
 };

@@ -425,6 +425,28 @@ function AirportBoard() {
                   }).format(currentTime)}
                 </span>
               </div>
+
+              <div className="flex flex-col items-start md:items-end">
+                <span className={`text-gray-400 uppercase font-black tracking-widest ${isFidsMode ? 'text-xl' : 'text-[8px] md:text-[11px]'}`}>
+                  {(() => {
+                    if (currentLanguage === 'UZ') {
+                      const months = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'];
+                      const weekdays = ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'];
+                      const day = currentTime.getDate().toString().padStart(2, '0');
+                      const month = isFidsMode ? months[currentTime.getMonth()] : months[currentTime.getMonth()].substring(0, 3);
+                      const year = currentTime.getFullYear();
+                      const weekday = isFidsMode ? weekdays[currentTime.getDay()] : weekdays[currentTime.getDay()].substring(0, 3);
+                      return `${weekday}, ${day} ${month}, ${year}`;
+                    }
+                    return new Intl.DateTimeFormat(currentLanguage === 'RU' ? 'ru-RU' : 'en-GB', {
+                      weekday: isFidsMode ? 'long' : 'short',
+                      day: '2-digit',
+                      month: isFidsMode ? 'long' : 'short',
+                      year: 'numeric'
+                    }).format(currentTime);
+                  })()}
+                </span>
+              </div>
               <div className={`bg-white/10 ${isFidsMode ? 'w-1 h-20' : 'w-px h-8'}`} />
               <div className="flex flex-col items-end">
                 <span className={`text-gray-400 uppercase font-black tracking-widest ${isFidsMode ? 'text-xl' : 'text-[8px] md:text-[11px]'}`}>{(t as any).weather}</span>

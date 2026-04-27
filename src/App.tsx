@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo, Fragment, useRef } from 'react';
 import { useLocation, useNavigate, Routes, Route, Navigate } from 'react-router-dom';
-import {BrowserRouter} from 'react-router-dom';
-import { 
-  Search, 
-  RefreshCw, 
+import { BrowserRouter } from 'react-router-dom';
+import {
+  Search,
+  RefreshCw,
   Plane,
   Clock,
   ChevronRight,
@@ -180,10 +180,10 @@ function AirportBoard() {
   const [filterType, setFilterType] = useState<FlightType | 'ALL'>('ALL');
   const [currentLanguage, setCurrentLanguage] = useState<Language>('UZ');
   const flightRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  
+
   // No longer derivation from URL, managed by state or simplified
   const activeTab = filterType;
-  
+
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -246,7 +246,7 @@ function AirportBoard() {
 
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
-    
+
     let closestFlightId = '';
     let minDiff = Infinity;
 
@@ -255,7 +255,7 @@ function AirportBoard() {
       const [hours, minutes] = f.scheduled_time.split(':').map(Number);
       const flightMinutes = hours * 60 + minutes;
       const diff = Math.abs(currentMinutes - flightMinutes);
-      
+
       if (diff < minDiff) {
         minDiff = diff;
         closestFlightId = `${f.flight_number}-${idx}`;
@@ -285,8 +285,8 @@ function AirportBoard() {
     const data = await fetchAllFlights();
     setFlights(data);
     if (!silent) {
-        setLoading(false);
-        setTimeout(scrollToCurrentFlight, 500);
+      setLoading(false);
+      setTimeout(scrollToCurrentFlight, 500);
     }
   };
 
@@ -303,10 +303,10 @@ function AirportBoard() {
 
     return flights.filter(f => {
       const matchesSearch = f.flight_number?.toLowerCase().includes(search.toLowerCase()) ||
-                            f.destination_city?.toLowerCase().includes(search.toLowerCase()) ||
-                            f.airline_name?.toLowerCase().includes(search.toLowerCase());
+        f.destination_city?.toLowerCase().includes(search.toLowerCase()) ||
+        f.airline_name?.toLowerCase().includes(search.toLowerCase());
       const matchesFilter = filterType === 'ALL' || f.type === filterType;
-      
+
       // Filter by time window: 2 hours before and 24 hours after
       let inTimeWindow = true;
       if (f.date && f.scheduled_time && f.scheduled_time !== '--:--') {
@@ -329,10 +329,10 @@ function AirportBoard() {
     const scroll = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
-      
+
       if (scrollContainerRef.current) {
         const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
-        
+
         if (scrollTop + clientHeight >= scrollHeight - 2) {
           // Reset to top with a pause
           setTimeout(() => {
@@ -378,20 +378,20 @@ function AirportBoard() {
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-airport-gold rounded-full blur-3xl" />
         </div>
-        
+
         <div className="max-w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-4 relative z-10 px-4">
           <div className="flex items-center justify-between w-full md:w-auto">
             <div className="flex items-center gap-2">
-              <div 
+              <div
                 className="h-10 md:h-14 flex items-center cursor-pointer transition-opacity hover:opacity-80"
                 onClick={() => navigate('/')}
               >
-                <img src="/logo1.png" alt="Uzbekistan Airports" className={`${isFidsMode ? 'h-32 md:h-48' : 'h-full'} w-auto object-contain`} />
+                <img src="logo1.png" alt="AIRPORT LOGO" className={`${isFidsMode ? 'h-32 md:h-48' : 'h-full'} w-auto object-contain`} />
               </div>
             </div>
-            
+
             {!isLandingPage && (
-              <button 
+              <button
                 onClick={loadFlights}
                 className={`md:hidden p-1.5 bg-white/5 rounded-lg border border-white/10 ${loading ? 'animate-spin' : ''}`}
               >
@@ -399,7 +399,7 @@ function AirportBoard() {
               </button>
             )}
           </div>
-          
+
           <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-4 md:gap-8">
             {/* Language Switcher Display */}
             <div className="flex gap-2">
@@ -418,8 +418,8 @@ function AirportBoard() {
               <div className="flex flex-col items-start md:items-end">
                 <span className={`text-gray-400 uppercase font-black tracking-widest ${isFidsMode ? 'text-4xl' : 'text-[8px] md:text-[11px]'}`}>{t.localTime}</span>
                 <span className={`font-black text-white leading-none ${isFidsMode ? 'text-9xl mt-4' : 'text-lg md:text-3xl'}`}>
-                  {new Intl.DateTimeFormat('en-GB', { 
-                    hour: '2-digit', 
+                  {new Intl.DateTimeFormat('en-GB', {
+                    hour: '2-digit',
                     minute: '2-digit',
                     timeZone: 'Asia/Tashkent'
                   }).format(currentTime)}
@@ -465,11 +465,10 @@ function AirportBoard() {
                         const path = tab.id === 'DEPARTURE' ? '/departures' : (tab.id === 'ARRIVAL' ? '/arrivals' : '/all');
                         navigate(path);
                       }}
-                      className={`px-2.5 md:px-3.5 py-1 rounded-[1px] text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 ${
-                        filterType === tab.id 
-                          ? 'bg-airport-gold text-airport-navy shadow-sm' 
+                      className={`px-2.5 md:px-3.5 py-1 rounded-[1px] text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 ${filterType === tab.id
+                          ? 'bg-airport-gold text-airport-navy shadow-sm'
                           : 'text-gray-400 hover:text-white hover:bg-white/5'
-                      }`}
+                        }`}
                     >
                       <tab.icon size={11} className={filterType === tab.id ? 'text-airport-navy' : 'text-airport-gold'} />
                       <span className="hidden sm:inline">{tab.label}</span>
@@ -479,14 +478,14 @@ function AirportBoard() {
                 </div>
 
                 <div className="hidden lg:flex items-center gap-2">
-                  <button 
+                  <button
                     onClick={() => setIsFidsMode(!isFidsMode)}
                     className={`p-1.5 transition-all border rounded-lg ${isFidsMode ? 'bg-airport-gold text-airport-navy border-airport-gold' : 'bg-white/5 border-white/10 text-white hover:bg-white/10'}`}
                     title={isFidsMode ? "Exit FIDS Mode" : "Enter FIDS Mode"}
                   >
                     <Info size={14} />
                   </button>
-                  <button 
+                  <button
                     onClick={loadFlights}
                     className={`p-1.5 bg-white/5 hover:bg-white/10 rounded-lg transition-all border border-white/10 ${loading ? 'animate-spin' : ''}`}
                   >
@@ -512,7 +511,7 @@ function AirportBoard() {
         )}
       </header>
 
-      <main 
+      <main
         ref={scrollContainerRef}
         className={`max-w-full mx-auto px-6 py-6 ${isFidsMode ? 'flex-1 overflow-y-auto no-scrollbar pb-20' : ''}`}
       >
@@ -520,7 +519,7 @@ function AirportBoard() {
         <Routes>
           <Route path="/" element={
             <div className="min-h-[60vh] flex flex-col items-center justify-center gap-12 py-20">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center space-y-6"
@@ -540,7 +539,7 @@ function AirportBoard() {
                   whileTap={{ scale: 0.98 }}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
-                   transition={{ delay: 0.1 }}
+                  transition={{ delay: 0.1 }}
                   onClick={() => {
                     navigate('/departures');
                   }}
@@ -600,7 +599,7 @@ function AirportBoard() {
                 ) : filteredFlights.length > 0 ? (
                   filteredFlights.map((flight, idx) => {
                     const showDateSeparator = idx === 0 || flight.date !== filteredFlights[idx - 1].date;
-                    
+
                     return (
                       <Fragment key={`${flight.flight_number}-${idx}`}>
                         {showDateSeparator && (
@@ -619,22 +618,21 @@ function AirportBoard() {
                           transition={{ delay: idx * 0.02 }}
                           onClick={() => setSelectedFlight(flight)}
                           ref={el => flightRefs.current[`${flight.flight_number}-${idx}`] = el}
-                          className={`bg-white text-gray-900 rounded-xl shadow-sm transition-all cursor-pointer group ${
-                            isFidsMode ? 'p-10 mb-6 border-2 border-gray-200' : 'p-2 md:px-6 md:py-2 border'
-                          } ${
+                          className={`bg-white text-gray-900 rounded-xl shadow-sm transition-all cursor-pointer group ${isFidsMode ? 'p-10 mb-6 border-2 border-gray-200' : 'p-2 md:px-6 md:py-2 border'
+                            } ${
                             // Highlight if within 15 minutes of current time in Tashkent
                             (() => {
                               const [h, m] = (flight.scheduled_time || "00:00").split(':').map(Number);
                               const fMin = h * 60 + m;
-                              
+
                               // Get current time in Tashkent
                               const tasTimeStr = currentTime.toLocaleString('en-US', { timeZone: 'Asia/Tashkent' });
                               const tasDate = new Date(tasTimeStr);
                               const curMin = tasDate.getHours() * 60 + tasDate.getMinutes();
-                              
+
                               return Math.abs(fMin - curMin) <= 15 ? 'border-airport-gold ring-2 ring-airport-gold/20 scale-[1.01] z-10' : (isFidsMode ? 'border-gray-200 hover:border-airport-gold' : 'border-gray-100 hover:shadow-md hover:border-airport-navy/10');
                             })()
-                          }`}
+                            }`}
                         >
                           <div className={`grid grid-cols-1 gap-2 items-center ${isFidsMode ? 'grid-cols-[1fr_1fr_1.5fr_1.5fr_3fr_1.3fr]' : 'md:grid-cols-[0.8fr_0.8fr_1.5fr_1fr_2fr_1fr]'}`}>
                             {/* Scheduled */}
@@ -681,8 +679,8 @@ function AirportBoard() {
 
                             <div className="flex items-center gap-3 text-left">
                               <div className={`bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden border border-gray-100 shrink-0 ${isFidsMode ? 'w-48 h-48' : 'w-8 h-8'}`}>
-                                <img 
-                                  src={getAirlineLogo(flight)} 
+                                <img
+                                  src={getAirlineLogo(flight)}
                                   alt={flight.airline_name}
                                   className="w-full h-full object-contain p-2"
                                   referrerPolicy="no-referrer"
@@ -696,9 +694,9 @@ function AirportBoard() {
 
                             {/* Status */}
                             <div className="flex justify-start">
-                                <div className={`rounded-full border font-black uppercase tracking-wider whitespace-nowrap ${isFidsMode ? 'px-12 py-6 text-4xl shadow-xl' : 'px-2 py-0.5 text-[8px]'} ${getStatusStyle(flight.status)}`}>
-                                  {(t as any).statuses?.[flight.status] || flight.status}
-                                </div>
+                              <div className={`rounded-full border font-black uppercase tracking-wider whitespace-nowrap ${isFidsMode ? 'px-12 py-6 text-4xl shadow-xl' : 'px-2 py-0.5 text-[8px]'} ${getStatusStyle(flight.status)}`}>
+                                {(t as any).statuses?.[flight.status] || flight.status}
+                              </div>
                             </div>
                           </div>
                         </motion.div>
@@ -742,8 +740,8 @@ function AirportBoard() {
                 <div className="flex items-center justify-between mb-12">
                   <div className="flex items-center gap-6">
                     <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center overflow-hidden">
-                      <img 
-                        src={getAirlineLogo(selectedFlight)} 
+                      <img
+                        src={getAirlineLogo(selectedFlight)}
                         alt={selectedFlight.airline_name}
                         className="w-full h-full object-contain p-2"
                         referrerPolicy="no-referrer"
@@ -754,7 +752,7 @@ function AirportBoard() {
                       <p className="text-lg text-gray-300 font-bold uppercase tracking-widest">{selectedFlight.airline_name}</p>
                     </div>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setSelectedFlight(null)}
                     className="p-4 hover:bg-white/10 rounded-full transition-colors"
                   >
@@ -767,7 +765,7 @@ function AirportBoard() {
                     <p className="text-[12px] text-gray-400 font-black uppercase tracking-widest mb-3">{selectedFlight.type === 'ARRIVAL' ? t.from : t.from}</p>
                     <h4 className="text-6xl font-black mb-2">{selectedFlight.type === 'ARRIVAL' ? selectedFlight.destination_code : 'TAS'}</h4>
                     <p className="text-xl font-bold text-gray-300">
-                      {selectedFlight.type === 'ARRIVAL' 
+                      {selectedFlight.type === 'ARRIVAL'
                         ? (AIRPORT_TRANSLATIONS[selectedFlight.destination_code || '']?.[currentLanguage.toLowerCase() as 'uz' | 'ru' | 'en'] || selectedFlight.destination_city || '---')
                         : (currentLanguage === 'UZ' ? 'Toshkent' : currentLanguage === 'RU' ? 'Ташкент' : 'Tashkent')
                       }
@@ -783,7 +781,7 @@ function AirportBoard() {
                     <p className="text-[12px] text-gray-400 font-black uppercase tracking-widest mb-3">{selectedFlight.type === 'ARRIVAL' ? t.to : t.to}</p>
                     <h4 className="text-6xl font-black mb-2">{selectedFlight.type === 'ARRIVAL' ? 'TAS' : selectedFlight.destination_code}</h4>
                     <p className="text-xl font-bold text-gray-300 truncate">
-                      {selectedFlight.type === 'ARRIVAL' 
+                      {selectedFlight.type === 'ARRIVAL'
                         ? (currentLanguage === 'UZ' ? 'Toshkent' : currentLanguage === 'RU' ? 'Ташкент' : 'Tashkent')
                         : (AIRPORT_TRANSLATIONS[selectedFlight.destination_code || '']?.[currentLanguage.toLowerCase() as 'uz' | 'ru' | 'en'] || selectedFlight.destination_city || '---')
                       }
@@ -822,7 +820,7 @@ function AirportBoard() {
               </div>
 
               <div className="p-10 bg-gray-50 flex justify-center">
-                <button 
+                <button
                   onClick={() => setSelectedFlight(null)}
                   className="bg-airport-navy text-white px-16 py-6 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-airport-gold hover:text-airport-navy transition-all shadow-lg"
                 >

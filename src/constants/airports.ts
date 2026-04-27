@@ -883,5 +883,10 @@ export const AIRPORT_TRANSLATIONS: Record<string, { ru: string, en: string, uz: 
 "ru":"МИЛАН",
 "uz":"MILAN",
 "en":"MILAN"
+},
+"ANK":{
+"ru":"АНКАРА",
+"uz":"ANQARA",
+"en":"ANKARA"
 }
 };

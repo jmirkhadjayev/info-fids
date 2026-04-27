@@ -496,14 +496,13 @@ function AirportBoard() {
                         const path = tab.id === 'DEPARTURE' ? '/departures' : (tab.id === 'ARRIVAL' ? '/arrivals' : '/all');
                         navigate(path);
                       }}
-                      className={`px-2.5 md:px-3.5 py-1 rounded-[1px] text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all flex items-center gap-1.5 ${filterType === tab.id
-                          ? 'bg-airport-gold text-airport-navy shadow-sm'
-                          : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      className={`px-3.5 py-1.5 md:px-4 md:py-2 rounded-lg transition-all flex items-center justify-center ${filterType === tab.id
+                          ? 'bg-airport-gold text-airport-navy shadow-lg'
+                          : 'text-gray-400 hover:text-white hover:bg-white/10'
                         }`}
+                      title={tab.label}
                     >
-                      <tab.icon size={11} className={filterType === tab.id ? 'text-airport-navy' : 'text-airport-gold'} />
-                      <span className="hidden sm:inline">{tab.label}</span>
-                      <span className="sm:hidden">{tab.id === 'ALL' ? 'ALL' : (tab.id === 'DEPARTURE' ? 'DEP' : 'ARR')}</span>
+                      <tab.icon size={isFidsMode ? 48 : 20} className={filterType === tab.id ? 'text-airport-navy' : 'text-airport-gold'} />
                     </button>
                   ))}
                 </div>
@@ -528,18 +527,6 @@ function AirportBoard() {
             )}
           </div>
         </div>
-
-        {/* Flight List Header integrated into Blue Header */}
-        {(location.pathname === '/all' || location.pathname === '/departures' || location.pathname === '/arrivals') && (
-          <div className={`hidden md:grid mt-4 max-w-full mx-auto gap-2 px-6 py-2 font-black uppercase tracking-widest text-gray-300 border-t border-white/10 ${isFidsMode ? 'grid-cols-[1fr_1fr_1.5fr_1.5fr_3fr_1.3fr] text-4xl py-12 mb-4' : 'grid-cols-[0.8fr_0.8fr_1.5fr_1fr_2fr_1fr] text-[9px]'}`}>
-            <div>{t.scheduled}</div>
-            <div>{t.actual}</div>
-            <div>{t.city}</div>
-            <div>{t.flight}</div>
-            <div>{t.airline}</div>
-            <div className="text-left">{t.status}</div>
-          </div>
-        )}
       </header>
 
       <main

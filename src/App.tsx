@@ -407,9 +407,14 @@ function AirportBoard() {
                 <button
                   key={lang}
                   onClick={() => setCurrentLanguage(lang)}
-                  className={`px-2 py-1 rounded text-[10px] font-black transition-all ${currentLanguage === lang ? 'bg-airport-gold text-airport-navy' : 'text-gray-400 hover:text-white bg-white/5'}`}
+                  className={`w-6 h-4 md:w-8 md:h-5 rounded-sm overflow-hidden transition-all border ${currentLanguage === lang ? 'border-airport-gold scale-110 shadow-lg' : 'border-white/10 opacity-40 hover:opacity-100'}`}
+                  title={lang}
                 >
-                  {lang}
+                  <img
+                    src={`https://flagcdn.com/w40/${lang === 'UZ' ? 'uz' : lang === 'RU' ? 'ru' : 'gb'}.png`}
+                    alt={lang}
+                    className="w-full h-full object-cover"
+                  />
                 </button>
               ))}
             </div>

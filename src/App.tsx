@@ -688,21 +688,13 @@ function AirportBoard() {
 
                               {/* Flight Number & Type */}
                               <div className="flex flex-col">
-                                <div className="flex items-center gap-1">
-                                  <span className={`font-black text-airport-navy whitespace-nowrap ${isFidsMode ? 'text-6xl' : 'text-[13px]'}`}>{flight.flight_number}</span>
-                                </div>
-                                <div className="flex items-center gap-1.5 mt-1">
+                                <div className="flex items-center gap-3">
                                   {flight.type === 'DEPARTURE' ? (
-                                    <>
-                                      <PlaneTakeoff size={isFidsMode ? 48 : 12} className="text-blue-600" />
-                                      <span className={`${isFidsMode ? 'text-2xl' : 'text-[8px]'} font-black uppercase text-blue-600 bg-blue-50 px-3 rounded`}>{t.departure}</span>
-                                    </>
+                                    <PlaneTakeoff size={isFidsMode ? 48 : 16} className="text-blue-600" />
                                   ) : (
-                                    <>
-                                      <PlaneLanding size={isFidsMode ? 48 : 12} className="text-green-600" />
-                                      <span className={`${isFidsMode ? 'text-2xl' : 'text-[8px]'} font-black uppercase text-green-600 bg-green-50 px-3 rounded`}>{t.arrival}</span>
-                                    </>
+                                    <PlaneLanding size={isFidsMode ? 48 : 16} className="text-green-600" />
                                   )}
+                                  <span className={`font-black text-airport-navy whitespace-nowrap ${isFidsMode ? 'text-6xl' : 'text-[13px]'}`}>{flight.flight_number}</span>
                                 </div>
                               </div>
 

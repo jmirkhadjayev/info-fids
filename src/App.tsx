@@ -401,23 +401,7 @@ function AirportBoard() {
           </div>
 
           <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-4 md:gap-8">
-            {/* Language Switcher Display */}
-            <div className="flex gap-2">
-              {(['UZ', 'RU', 'EN'] as Language[]).map(lang => (
-                <button
-                  key={lang}
-                  onClick={() => setCurrentLanguage(lang)}
-                  className={`w-6 h-4 md:w-8 md:h-5 rounded-sm overflow-hidden transition-all border ${currentLanguage === lang ? 'border-airport-gold scale-110 shadow-lg' : 'border-white/10 opacity-40 hover:opacity-100'}`}
-                  title={lang}
-                >
-                  <img
-                    src={`https://flagcdn.com/w40/${lang === 'UZ' ? 'uz' : lang === 'RU' ? 'ru' : 'gb'}.png`}
-                    alt={lang}
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
+            {/* Language Switcher Removed */}
 
             <div className="flex items-center gap-6 md:gap-12">
               <div className="flex flex-col items-start md:items-end">

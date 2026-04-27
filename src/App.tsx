@@ -520,11 +520,7 @@ function AirportBoard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center space-y-6"
               >
-                <div className="flex justify-center mb-8">
-                  <div className="h-24 md:h-32 bg-airport-navy p-4 rounded-3xl shadow-2xl flex items-center justify-center">
-                    <img src="./logo1.png" alt="Uzbekistan Airports Logo" className="h-full w-auto object-contain" />
-                  </div>
-                </div>
+
                 <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
                   {t.welcome} <span className="text-airport-gold">{t.airportName}</span>
                 </h2>

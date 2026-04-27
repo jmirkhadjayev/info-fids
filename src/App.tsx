@@ -405,11 +405,11 @@ function AirportBoard() {
 
             <div className="flex items-center gap-6 md:gap-12">
               <div className="flex flex-col items-start md:items-end">
-                <span className={`text-gray-400 uppercase font-black tracking-widest ${isFidsMode ? 'text-4xl' : 'text-[8px] md:text-[11px]'}`}>{t.localTime}</span>
-                <span className={`font-black text-white leading-none ${isFidsMode ? 'text-9xl mt-4' : 'text-lg md:text-3xl'}`}>
+                <span className={`font-black text-white leading-none ${isFidsMode ? 'text-[12rem] mt-6' : 'text-xl md:text-5xl'}`}>
                   {new Intl.DateTimeFormat('en-GB', {
                     hour: '2-digit',
                     minute: '2-digit',
+                    second: '2-digit',
                     timeZone: 'Asia/Tashkent'
                   }).format(currentTime)}
                 </span>

@@ -857,8 +857,14 @@ function AirportBoard() {
               <img src="/logo1.png" alt="Uzbekistan Airports" className="h-full w-auto object-contain" />
             </div>
           </div>
-
-          <p className="text-[12px] text-gray-500 font-black uppercase tracking-widest">created by <a href="http://mirkhadjayev.uz/" target="_blank" rel="noopener noreferrer" className="hover:text-airport-gold transition-colors underline decoration-airport-gold/30 underline-offset-4">Jamshid Mirkhadjayev</a></p>
+          <div className="flex items-center gap-4">
+            <p className="text-[12px] text-gray-500 font-black uppercase tracking-widest">
+              created by <a href="http://mirkhadjayev.uz/" target="_blank" rel="noopener noreferrer" className="hover:text-airport-gold transition-colors underline decoration-airport-gold/30 underline-offset-4">Jamshid Mirkhadjayev</a>
+            </p>
+            <a href="http://mirkhadjayev.uz/" target="_blank" rel="noopener noreferrer" className="h-12 flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity">
+              <img src="./signature.png" alt="Signature" className="h-full w-auto object-contain invert mix-blend-screen" />
+            </a>
+          </div>
         </div>
       </footer>
     </div>

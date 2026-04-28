@@ -851,19 +851,14 @@ function AirportBoard() {
       </AnimatePresence>
 
       <footer className="bg-airport-navy text-white py-20 px-10">
-        <div className="max-w-full mx-auto flex flex-col md:flex-row justify-between items-center gap-16">
-          <div className="flex items-center gap-6">
-            <div className="h-16 md:h-20 flex items-center justify-center transition-opacity hover:opacity-80 cursor-pointer" onClick={() => navigate('/')}>
-              <img src="/logo1.png" alt="Uzbekistan Airports" className="h-full w-auto object-contain" />
-            </div>
-          </div>
-          <div className="flex flex-col items-center md:items-end gap-2 mt-4 md:mt-0">
-            <p className="text-[12px] text-gray-500 font-black uppercase tracking-widest text-center md:text-right">
-              created by <a href="http://mirkhadjayev.uz/" target="_blank" rel="noopener noreferrer" className="hover:text-airport-gold transition-colors underline decoration-airport-gold/30 underline-offset-4">Jamshid Mirkhadjayev</a>
-            </p>
-            <a href="http://mirkhadjayev.uz/" target="_blank" rel="noopener noreferrer" className="h-20 md:h-24 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity">
+        <div className="max-w-full mx-auto flex flex-col items-center justify-center gap-16">
+          <div className="flex flex-col items-center gap-4 mt-4 md:mt-0">
+            <a href="http://mirkhadjayev.uz/" target="_blank" rel="noopener noreferrer" className="h-24 md:h-32 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity">
               <img src="./signature.png" alt="Signature" className="h-full w-auto object-contain invert mix-blend-screen" />
             </a>
+            <p className="text-[12px] text-gray-500 font-black uppercase tracking-widest text-center">
+              created by <a href="http://mirkhadjayev.uz/" target="_blank" rel="noopener noreferrer" className="hover:text-airport-gold transition-colors underline decoration-airport-gold/30 underline-offset-4">Jamshid Mirkhadjayev</a>
+            </p>
           </div>
         </div>
       </footer>

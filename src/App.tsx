@@ -853,7 +853,7 @@ function AirportBoard() {
       <footer className="bg-airport-navy text-white py-20 px-10">
         <div className="max-w-full mx-auto flex flex-col items-center justify-center gap-16">
           <div className="flex flex-col items-center gap-0 mt-4 md:mt-0">
-            <a href="http://mirkhadjayev.uz/" target="_blank" rel="noopener noreferrer" className="h-16 md:h-20 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity -mb-4">
+            <a href="http://mirkhadjayev.uz/" target="_blank" rel="noopener noreferrer" className="h-16 md:h-20 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity -mb-1">
               <img src="./signature.png" alt="Signature" className="h-full w-auto object-contain invert mix-blend-screen" />
             </a>
             <p className="text-[12px] text-gray-500 font-black uppercase tracking-widest text-center">

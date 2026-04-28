@@ -520,10 +520,17 @@ function AirportBoard() {
 
       <main
         ref={scrollContainerRef}
-        className={`max-w-full mx-auto px-6 py-6 ${isFidsMode ? 'flex-1 overflow-y-auto no-scrollbar pb-20' : ''}`}
+        className={`max-w-full mx-auto px-6 py-6 relative ${isFidsMode ? 'flex-1 overflow-y-auto no-scrollbar pb-20' : ''}`}
       >
+        {/* Background Logo for Flights */}
+        {(location.pathname === '/all' || location.pathname === '/departures' || location.pathname === '/arrivals') && (
+          <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-10">
+            <img src="bg-image.png" alt="" className="w-[150vw] md:w-[60vw] h-auto object-contain blur-[1px]" />
+          </div>
+        )}
 
-        <Routes>
+        <div className="relative z-10">
+          <Routes>
           <Route path="/" element={
             <div className="min-h-[60vh] flex flex-col items-center justify-center gap-12 py-20">
               <motion.div
@@ -726,7 +733,8 @@ function AirportBoard() {
             } />
           ))}
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+          </Routes>
+        </div>
       </main>
 
       {/* Flight Detail Modal */}

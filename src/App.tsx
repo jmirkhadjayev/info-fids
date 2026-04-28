@@ -524,8 +524,8 @@ function AirportBoard() {
       >
         {/* Background Logo for Flights */}
         {(location.pathname === '/all' || location.pathname === '/departures' || location.pathname === '/arrivals') && (
-          <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-10">
-            <img src="bg-image.png" alt="" className="w-[150vw] md:w-[60vw] h-auto object-contain blur-[1px]" />
+          <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-40">
+            <img src="./bg-image.png" alt="" className="w-[150vw] md:w-[60vw] h-auto object-contain" />
           </div>
         )}
 

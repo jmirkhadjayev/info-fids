@@ -522,8 +522,8 @@ function AirportBoard() {
         ref={scrollContainerRef}
         className={`max-w-full mx-auto px-6 py-6 relative ${isFidsMode ? 'flex-1 overflow-y-auto no-scrollbar pb-20' : ''}`}
       >
-        {/* Background Logo for Flights */}
-        {(location.pathname === '/all' || location.pathname === '/departures' || location.pathname === '/arrivals') && (
+        {/* Background Logo for Landing Page */}
+        {location.pathname === '/' && (
           <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-40">
             <img src="./bg-image.png" alt="" className="w-[150vw] md:w-[60vw] h-auto object-contain" />
           </div>

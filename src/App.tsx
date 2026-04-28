@@ -616,11 +616,17 @@ function AirportBoard() {
                               <div className="flex items-center gap-2 px-4 py-1.5 bg-airport-navy text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-md border border-white/5">
                                 <Calendar size={12} className="text-airport-gold" />
                                 {(() => {
+                                  const months = {
+                                    UZ: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
+                                    RU: ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'],
+                                    EN: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                                  };
+                                  const lang = currentLanguage as Language;
                                   const dateObj = new Date(flight.date);
                                   const year = dateObj.getFullYear();
-                                  const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+                                  const month = months[lang][dateObj.getMonth()];
                                   const day = dateObj.getDate().toString().padStart(2, '0');
-                                  return `${year} M${month} ${day}`;
+                                  return `${day} ${month} ${year}`;
                                 })()}
                               </div>
                               <div className="flex-1 h-px bg-airport-navy/10" />
